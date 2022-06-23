@@ -73,9 +73,12 @@ const drawWheel = (
     ctx.font = `bold ${fontSize}px Helvetica, Arial`;
 
     for (let i = 0; i < data.length; i++) {
-      const QUANTITY = sumValues / data[i].value;
-      const arc = Math.PI / (QUANTITY / 2);
-      const angle = startAngle + i * arc;
+      const ratio = sumValues / data[i].value;
+      const accumulated = data.slice(0, i + 1).reduce((prev, current) => current.value + prev, 0);
+      const accumulatedRatio = accumulated === 0? 0: sumValues / accumulated;
+      const arc = 2 * Math.PI / ratio;
+      const angle = startAngle + 2 * Math.PI / accumulatedRatio;
+      
       const { style } = data[i];
       ctx.fillStyle = (style && style.backgroundColor) as string;
 
