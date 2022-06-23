@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 import { Wheel } from '.';
 
 // test('renders Wheel component', () => {
-const data = [{ option: '0' }];
+const data = [{ option: '0', value: 100 }];
 const prizeNumber = 0;
 const mustStartSpinning = false;
 

@@ -2,7 +2,7 @@ import React, { createRef, useEffect } from 'react';
 import { WheelCanvasStyle } from './styles';
 import { clamp } from '../../utils';
 var drawWheel = function (canvasRef, data, drawWheelProps) {
-    var QUANTITY = data.length;
+    var sumValues = data.reduce(function (prev, current) { return prev + current.value; }, 0);
     /* eslint-disable prefer-const */
     var outerBorderColor = drawWheelProps.outerBorderColor, outerBorderWidth = drawWheelProps.outerBorderWidth, innerRadius = drawWheelProps.innerRadius, innerBorderColor = drawWheelProps.innerBorderColor, innerBorderWidth = drawWheelProps.innerBorderWidth, radiusLineColor = drawWheelProps.radiusLineColor, radiusLineWidth = drawWheelProps.radiusLineWidth, fontSize = drawWheelProps.fontSize, perpendicularText = drawWheelProps.perpendicularText, textDistance = drawWheelProps.textDistance;
     /* eslint-enable prefer-const */
@@ -17,7 +17,6 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
         ctx.strokeStyle = 'transparent';
         ctx.lineWidth = 0;
         // ctx.translate(0.5, 0.5)
-        var arc = Math.PI / (QUANTITY / 2);
         var startAngle = 0;
         var outsideRadius = canvas.width / 2 - 10;
         var clampedTextDistance = clamp(0, 100, textDistance);
@@ -28,6 +27,8 @@ var drawWheel = function (canvasRef, data, drawWheelProps) {
         var centerY = canvas.height / 2;
         ctx.font = "bold " + fontSize + "px Helvetica, Arial";
         for (var i = 0; i < data.length; i++) {
+            var QUANTITY = sumValues / data[i].value;
+            var arc = Math.PI / (QUANTITY / 2);
             var angle = startAngle + i * arc;
             var style = data[i].style;
             ctx.fillStyle = (style && style.backgroundColor);

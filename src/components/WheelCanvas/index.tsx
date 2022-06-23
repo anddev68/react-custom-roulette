@@ -28,7 +28,8 @@ const drawWheel = (
   data: WheelData[],
   drawWheelProps: DrawWheelProps
 ) => {
-  const QUANTITY = data.length;
+  const sumValues = data.reduce((prev, current) => prev + current.value, 0);
+
   /* eslint-disable prefer-const */
   let {
     outerBorderColor,
@@ -57,7 +58,6 @@ const drawWheel = (
     ctx.lineWidth = 0;
     // ctx.translate(0.5, 0.5)
 
-    const arc = Math.PI / (QUANTITY / 2);
     const startAngle = 0;
     const outsideRadius = canvas.width / 2 - 10;
 
@@ -73,6 +73,8 @@ const drawWheel = (
     ctx.font = `bold ${fontSize}px Helvetica, Arial`;
 
     for (let i = 0; i < data.length; i++) {
+      const QUANTITY = sumValues / data[i].value;
+      const arc = Math.PI / (QUANTITY / 2);
       const angle = startAngle + i * arc;
       const { style } = data[i];
       ctx.fillStyle = (style && style.backgroundColor) as string;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Wheel } from '.';
 // test('renders Wheel component', () => {
-var data = [{ option: '0' }];
+var data = [{ option: '0', value: 100 }];
 var prizeNumber = 0;
 var mustStartSpinning = false;
 var backgroundColors = ['#3e3e3e', '#df3428'];
